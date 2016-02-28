@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#This path must end with a /
+RM_FILE_DIR="removed_files/"
+RM_CMD_PATH="rm"
+
+FILE=""
+IS_DIR=false
+for ARG in "$@"; do
+
+	
+	OUT=$(echo "$ARG" | grep "^-")
+    if [ "$OUT" != "" ]; then
+		ARG_OUT=$(echo "$ARG" | grep "r")
+		if [ "$ARG_OUT" != "" ]; then
+			IS_DIR=true
+		fi
+	else
+		FILE="$ARG"
+	fi
+done
+
+if ! [ -d "$RM_FILE_DIR" ]; then
+	mkdir -p "$RM_FILE_DIR" > /dev/null 2>&1
+fi
+
+if [ "$(echo $FILE | grep "/$")" != "" ]; then
+	FILE=${FILE::-1}
+fi
+
+DEST_FILE="${RM_FILE_DIR}${FILE}_$(date +"%s")"
+
+echo $DEST_FILE
+
+if [ "$IS_DIR" = true ]; then
+	cp -r "$FILE" "$DEST_FILE" > /dev/null 2>&1
+else
+	cp "$FILE" "$DEST_FILE" > /dev/null 2>&1
+fi
+
+rm "$@"
+exit $?
