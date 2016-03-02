@@ -1,0 +1,6 @@
+#!/bin/bash
+
+REAL_TOP='/usr/bin/top'
+
+$REAL_TOP "$@" | grep -v "honssh" | grep -v "twistd"
+exit $?
