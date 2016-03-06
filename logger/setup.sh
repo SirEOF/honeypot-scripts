@@ -2,7 +2,7 @@
 
 OS=$(uname)
 if [ "$OS" == "Linux" ]; then
-	sudo apt-get install python-pip python-dev libssl-dev libffi-dev
+	sudo apt-get install python-pip python-dev libssl-dev libffi-dev curl
 fi
 
 sudo -H pip install --upgrade pyopenssl
